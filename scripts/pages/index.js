@@ -1,8 +1,7 @@
 async function getPhotographers() {
     const response = await fetch("./data/photographers.json");
-
     const data = await response.json();
-    return data.photographers;
+    return data;
 }
 
 async function displayData(photographers) {
@@ -20,7 +19,8 @@ async function displayData(photographers) {
 async function init() {
     // Récupère les datas des photographes
     const photographers = await getPhotographers();
-    displayData(photographers);
+    // displayData with array of photographers from the fetch json file
+    displayData(photographers.photographers);
 }
 
 init();
