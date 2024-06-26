@@ -2,20 +2,21 @@ function photographerTemplate(data) {
     const { id, name, city, country, price, tagline, portrait } = data;
     const picture = `assets/photographers/Photographers-Id-Photos/${portrait}`;
 
+    const img = document.createElement("img");
+    img.setAttribute("src", picture);
+    const pLocalisation = document.createElement("p");
+    pLocalisation.className = "photographe-location";
+    pLocalisation.textContent = `${city}, ${country}`;
+    const pTagline = document.createElement("p");
+    pTagline.textContent = tagline;
+    pTagline.className = "photographe-tagline";
+
     function getUserCardDOM() {
         const article = document.createElement("article");
         const link = document.createElement("a");
         link.setAttribute("href", `./photographer.html?id=${id}`);
-        const img = document.createElement("img");
-        img.setAttribute("src", picture);
         const h2 = document.createElement("h2");
         h2.textContent = name;
-        const pLocalisation = document.createElement("p");
-        pLocalisation.className = "photographe-location";
-        pLocalisation.textContent = `${city}, ${country}`;
-        const pTagline = document.createElement("p");
-        pTagline.textContent = tagline;
-        pTagline.className = "photographe-tagline";
         const pPrice = document.createElement("p");
         pPrice.className = "photographe-price";
         pPrice.textContent = `${price}€/jour`;
@@ -29,10 +30,21 @@ function photographerTemplate(data) {
         article.appendChild(pPrice);
         return article;
     }
-    return { name, picture, getUserCardDOM };
-}
-
-function photographerPageTemplage(array) {
-    const { id, name, city, country, price, tagline, portrait } = array;
-    const picture = `assets/photographers/Photographers-Id-Photos/${portrait}`;
+    function getHTMLPicture() {
+        // const div = document.createElement("div");
+        // div.appendChild(img);
+        return img;
+    }
+    function getHTMLInfo() {
+        const div = document.createElement("div");
+        div.className = "photograph-info";
+        const h1 = document.createElement("h1");
+        h1.textContent = name;
+        h1.className = "photograph-name";
+        div.appendChild(h1);
+        div.appendChild(pLocalisation);
+        div.appendChild(pTagline);
+        return div;
+    }
+    return { name, picture, getUserCardDOM, getHTMLInfo, getHTMLPicture };
 }

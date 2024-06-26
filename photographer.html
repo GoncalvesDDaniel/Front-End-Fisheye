@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
-  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href="css/photographer.css" rel="stylesheet" type="text/css" />
   <meta charset="utf-8">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
@@ -27,12 +27,19 @@
       <form>
         <div>
           <label>Prénom</label>
-          <input />
+          <input type="text" />
+          <label>Nom</label>
+          <input type="text" />
+          <label>Email</label>
+          <input type="email" />
+          <label>Votre message</label>
+          <textarea name="" id="" rows="10"></textarea>
         </div>
         <button class="contact_button">Envoyer</button>
       </form>
     </div>
   </div>
+  <script src="scripts/templates/photographerFactory.js"></script>
   <script src="/scripts/pages/photographer.js"></script>
   <script src="/scripts/utils/contactForm.js"></script>
 </body>
