@@ -52,7 +52,7 @@ a:visited {
 
 .photographer_section article h2 {
     color: #d3573c;
-    font-size: 36px;
+    font-size: clamp(24px, 2rem, 3rem);
     margin-top: 20px;
 }
 

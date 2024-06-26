@@ -1,6 +1,5 @@
 function photographerTemplate(data) {
-    const { name, city, country, id, price, tagline, portrait } = data;
-
+    const { id, name, city, country, price, tagline, portrait } = data;
     const picture = `assets/photographers/Photographers-Id-Photos/${portrait}`;
 
     function getUserCardDOM() {
@@ -31,4 +30,9 @@ function photographerTemplate(data) {
         return article;
     }
     return { name, picture, getUserCardDOM };
+}
+
+function photographerPageTemplage(array) {
+    const { id, name, city, country, price, tagline, portrait } = array;
+    const picture = `assets/photographers/Photographers-Id-Photos/${portrait}`;
 }
