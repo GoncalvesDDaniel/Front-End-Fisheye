@@ -17,6 +17,27 @@
     <div class="photograph-header">
       <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
     </div>
+    <section class="media-gallery">
+      <label for="sort-selection" class="sort-btn">Trier par :
+        <select name="sort" id="sort-selection">
+          <option value="Popularité" selected>Popularité</option>
+          <option value="Date">Date</option>
+          <option value="Titre">Titre</option></label>
+      </select>
+      <div class="gallery">
+        <div class="gallery-card">
+
+          <img src="./assets/photographers/Mimi/Animals_Rainbow.jpg" alt="" class="gallery-img">
+          <div class="gallery-text">
+            <p class="gallery-title">title</p>
+            <div class="gallery-likes">
+              <p class="likes-count">12</p>
+              <img src="assets/Heart.svg" alt="" class="gallery-heart">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
   <div id="contact_modal">
     <div class="modal">
@@ -40,6 +61,7 @@
     </div>
   </div>
   <script src="scripts/templates/photographerFactory.js"></script>
+  <script src="scripts/templates/mediaFactory.js"></script>
   <script src="/scripts/pages/photographer.js"></script>
   <script src="/scripts/utils/contactForm.js"></script>
 </body>
