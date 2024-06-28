@@ -7,13 +7,31 @@
 // 	"date": "2011-12-08",
 // 	"price": 55
 // },
-function mediaTemplate(data, photographName) {
-    const { id, title, likes, date, price, image } = data;
-    const picture = `assets/photographers/${photographName}/${image}`;
 
-    const img = document.createElement("img");
-    img.setAttribute("src", picture);
+function mediaTemplate(data) {
+    const { id, title, likes, image } = data;
+    const div = document.querySelector(".gallery");
+    const media = `./assets/photographers/${photographerId}/${image}`;
+    function getUserMediaCardDOM() {
+        const divCard = document.createElement("div");
+        divCard.className = "gallery-card";
+        // const img = document.createElement('img')
+        // img.setAttribute = ('src', media)
+        // img.setAttribute = ('alt', title)
+        // const title = document.createElement('p')
+        // title.innerText = `${title}`
 
-    function getUserCardDOM() {}
-    return { name, picture, getUserCardDOM, getHTMLInfo, getHTMLPicture };
+        divCard.innerHTML = `   
+          <img src=${media} alt="${title}" class="gallery-img">
+          <div class="gallery-text">
+            <p class="gallery-title">${title}</p>
+            <div class="gallery-likes">
+              <p class="likes-count">${likes}</p>
+              <img src="assets/icons/Heart.svg" alt="" class="gallery-heart">
+            </div>
+        </div>
+    `;
+        return divCard;
+    }
+    return { id, media, getUserMediaCardDOM };
 }

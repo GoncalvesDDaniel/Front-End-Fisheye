@@ -19,11 +19,22 @@ function displayData(array) {
     photographHeader.appendChild(photographInfo);
     photographHeader.appendChild(photographPicture);
 }
+function displayMedia(array) {
+    const card = array.forEach((element) => mediaTemplate(element));
+    const gallery = document.querySelector(".gallery");
+
+    array.forEach((media) => {
+        const mediaModel = mediaTemplate(media);
+        const userMediaCard = mediaModel.getUserMediaCardDOM();
+        gallery.appendChild(userMediaCard);
+    });
+}
 async function init() {
     // Récupère les datas (photographes + media) des photographes
     const photograph = await getPhotographerId(photographerId);
     // displayData with array of photographers from the fetch json file
     displayData(photograph.photographer[0]);
+    displayMedia(photograph.media);
 }
 
 init();
