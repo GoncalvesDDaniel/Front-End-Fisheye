@@ -34,7 +34,41 @@ async function init() {
     const photograph = await getPhotographerId(photographerId);
     // displayData with array of photographers from the fetch json file
     displayData(photograph.photographer[0]);
-    displayMedia(photograph.media);
+    // displayMedia(photograph.media);
+    let gallery = photograph.media;
+    gallery.sort(function (a, b) {
+        return b.likes - a.likes;
+    });
+    displayMedia(gallery);
+    const sortChoice = document.querySelector("select");
+    sortChoice.addEventListener("change", () => {
+        const galleryCleaner = document.querySelector(".gallery");
+        galleryCleaner.innerHTML = "";
+        switch (sortChoice.selectedIndex) {
+            // popularite
+            case 0:
+                gallery.sort(function (a, b) {
+                    return b.likes - a.likes;
+                });
+                displayMedia(gallery);
+                break;
+
+            // Date
+            case 1:
+                gallery.sort(function (a, b) {
+                    return new Date(b.date) - new Date(a.date);
+                });
+                displayMedia(gallery);
+                break;
+            // title
+            case 2:
+                gallery.sort(function (a, b) {
+                    return b.title < a.title ? 1 : -1;
+                });
+                displayMedia(gallery);
+                break;
+        }
+    });
 }
 
 init();
