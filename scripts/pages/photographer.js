@@ -32,20 +32,48 @@ function displayMedia(array) {
 async function init() {
     // Récupère les datas (photographes + media) des photographes
     const photograph = await getPhotographerId(photographerId);
+
     // displayData with array of photographers from the fetch json file
     displayData(photograph.photographer[0]);
+
     // displayMedia(photograph.media);
-    let gallery = photograph.media;
-    gallery.sort(function (a, b) {
+    let medias = photograph.media;
+
+    // sort and display gallery content by likes by default
+    medias.sort(function (a, b) {
         return b.likes - a.likes;
     });
-    displayMedia(gallery);
+    displayMedia(medias);
+
+    sortGalleryListener(medias);
+    lightbox();
+}
+
+// lightbox
+function lightbox() {
+    const lightbox = document.querySelector(".lightbox");
+    const clickableMedia = document.querySelectorAll(".gallery-content");
+    console.log(Array.from(clickableMedia));
+    clickableMedia.forEach((media) =>
+        media.addEventListener("click", (event) => {
+            lightbox.classList.remove("hide");
+            console.log(event);
+            console.log(media[0]);
+        })
+    );
+    const closeLightbox = document.querySelector(".lightbox-close");
+    closeLightbox.addEventListener("click", () =>
+        lightbox.classList.add("hide")
+    );
+}
+// sort medias with select options
+function sortGalleryListener(gallery) {
     const sortChoice = document.querySelector("select");
     sortChoice.addEventListener("change", () => {
         const galleryCleaner = document.querySelector(".gallery");
         galleryCleaner.innerHTML = "";
         switch (sortChoice.selectedIndex) {
-            // popularite
+            // popularity
             case 0:
                 gallery.sort(function (a, b) {
                     return b.likes - a.likes;
