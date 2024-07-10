@@ -20,7 +20,7 @@ function mediaTemplate(data) {
     }
     if (!!video) {
         media = `./assets/photographers/${photographerId}/${video}`;
-        content = `<video controls src="${media}#t=0.1" type="video/mp4" preload="metadata" class="gallery-content"></video>`;
+        content = `<video  src="${media}#t=0.1" type="video/mp4" preload="metadata" class="gallery-content"></video>`;
     }
 
     function getUserMediaCardDOM() {

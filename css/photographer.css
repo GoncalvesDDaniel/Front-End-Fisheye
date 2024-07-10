@@ -158,7 +158,13 @@ img.gallery-heart {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
 }
-.lightbox-media img {
+.lightbox-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.lightbox-content img,
+.lightbox-content video {
     position: relative;
     max-width: 90%;
     max-height: 100%;
