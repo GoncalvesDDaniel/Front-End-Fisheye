@@ -38,12 +38,13 @@ async function init() {
 
     // displayMedia(photograph.media);
     let medias = photograph.media;
-
+    // debugger;
     // sort and display gallery content by likes by default
     medias.sort(function (a, b) {
         return b.likes - a.likes;
     });
     displayMedia(medias);
+    likeCounterAndPrice(photograph);
     sortGalleryListener(medias);
     lightbox();
 }
@@ -53,9 +54,11 @@ function lightbox() {
     const lightbox = document.querySelector(".lightbox");
     const gallery = document.querySelector(".gallery");
     gallery.addEventListener("click", (event) => {
-        lightbox.classList.remove("hide");
+        const clickedElement = event.target.closest(".gallery-content");
+        if (!clickedElement) return;
         let galleryNodeEl = document.querySelectorAll(".gallery-content");
         let lightboxArrayGallery = Array.from(galleryNodeEl);
+        lightbox.classList.remove("hide");
         let index;
 
         // find index of the clicked media
@@ -140,4 +143,51 @@ function sortGalleryListener(gallery) {
     });
 }
 
+function likeCounterAndPrice(obj) {
+    // debugger;
+    const photographHeader = document.querySelector(".photograph-header");
+    const div = document.createElement("div");
+    div.className = "total-likes";
+    let totalLikes = obj.media.reduce((a, b) => a + b.likes, 0);
+    const likesText = document.createElement("div");
+    likesText.className = "photograph-likes";
+    const pTotalLikes = document.createElement("p");
+    pTotalLikes.className = "photograph-likes-count";
+    pTotalLikes.textContent = `${totalLikes}`;
+    const heart = document.createElement("img");
+    heart.src = "assets/icons/Black-Heart.svg";
+    heart.className = "total-likes__heart";
+    const pPrice = document.createElement("p");
+    pPrice.className = "photograph-price";
+    pPrice.textContent = `${obj.photographer[0].price}€/jour`;
+
+    photographHeader.appendChild(div);
+    div.appendChild(likesText);
+    likesText.appendChild(pTotalLikes);
+    likesText.appendChild(heart);
+    div.appendChild(pPrice);
+
+    // likeIncrementation();
+
+    // function likeIncrementation() {
+    const likedMedia = document.querySelectorAll(".gallery-heart");
+    // debugger;
+    likedMedia.forEach((heart) =>
+        heart.addEventListener("click", (event) => {
+            const clickedElement = event.target.closest(".gallery-heart");
+            if (!clickedElement) return;
+            let numberOfLikes = parseInt(
+                event.target.previousElementSibling.textContent
+            );
+            event.target.previousElementSibling.textContent = numberOfLikes + 1;
+
+            const numberOfTotalLikesEl = document.querySelector(
+                ".photograph-likes-count"
+            );
+            let numberOfTotalLikes = parseInt(numberOfTotalLikesEl.textContent);
+            numberOfTotalLikesEl.textContent = numberOfTotalLikes + 1;
+        })
+    );
+    // }
+}
 init();
