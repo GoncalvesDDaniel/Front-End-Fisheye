@@ -44,8 +44,8 @@ async function init() {
         return b.likes - a.likes;
     });
     displayMedia(medias);
+    sortGalleryListener(medias, photograph);
     likeCounterAndPrice(photograph);
-    sortGalleryListener(medias);
     lightbox();
 }
 
@@ -110,7 +110,7 @@ function lightbox() {
     );
 }
 // sort medias with select options
-function sortGalleryListener(gallery) {
+function sortGalleryListener(gallery, photographer) {
     const sortChoice = document.querySelector("select");
     console.log(gallery);
     sortChoice.addEventListener("change", () => {
@@ -140,11 +140,12 @@ function sortGalleryListener(gallery) {
                 displayMedia(gallery);
                 break;
         }
+        likeCounterAndPrice(photographer);
     });
 }
 
 function likeCounterAndPrice(obj) {
-    // debugger;
+    debugger;
     const photographHeader = document.querySelector(".photograph-header");
     const div = document.createElement("div");
     div.className = "total-likes";
