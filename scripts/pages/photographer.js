@@ -145,7 +145,7 @@ function sortGalleryListener(gallery, photographer) {
 }
 
 function likeCounterAndPrice(obj) {
-    debugger;
+    // debugger;
     const photographHeader = document.querySelector(".photograph-header");
     const div = document.createElement("div");
     div.className = "total-likes";
