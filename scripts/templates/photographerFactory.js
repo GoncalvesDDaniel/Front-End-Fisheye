@@ -4,6 +4,7 @@ function photographerTemplate(data) {
 
     const img = document.createElement("img");
     img.setAttribute("src", picture);
+    img.setAttribute("alt", name);
     img.className = "photograph-picture";
     const pLocalisation = document.createElement("p");
     pLocalisation.className = "photographe-location";
