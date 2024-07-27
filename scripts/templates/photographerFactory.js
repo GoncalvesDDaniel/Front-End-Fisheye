@@ -4,7 +4,7 @@ function photographerTemplate(data) {
 
     const img = document.createElement("img");
     img.setAttribute("src", picture);
-    img.setAttribute("alt", name);
+    img.setAttribute("alt", "");
     img.className = "photograph-picture";
     const pLocalisation = document.createElement("p");
     pLocalisation.className = "photographe-location";
@@ -23,8 +23,8 @@ function photographerTemplate(data) {
         pPrice.className = "photographe-price";
         pPrice.textContent = `${price}€/jour`;
 
-        link.appendChild(img);
         link.appendChild(h2);
+        link.appendChild(img);
 
         article.appendChild(link);
         article.appendChild(pLocalisation);
