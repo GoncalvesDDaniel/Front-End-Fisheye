@@ -11,14 +11,14 @@
 
 <body>
   <header role="banner">
-    <a href="index.html" aria-describedby="MainLogo"><img src="assets/images/logo.png" alt="Fisheye Home page"
+    <a href="index.html" aria-describedby="MainLogo"><img src="assets/images/logo.png" alt="Page d'accueil Fish   eye"
         class="logo" id="MainLogo" /></a>
   </header>
   <main id="main">
-    <section role="region" class="photograph-header">
+    <section class="photograph-header">
       <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
     </section>
-    <section class="media-gallery" role="region">
+    <section class="media-gallery">
       <label for="sort-selection" class="sort-btn">Trier par :
         <select name="sort" id="sort-selection">
           <option value="Popularité" selected>Popularité</option>
@@ -30,32 +30,33 @@
     </section>
 
   </main>
-  <div class="lightbox hide">
+  <div class="lightbox hide" role="dialog" aria-label="Afficher l'image en grand" aria-hidden="true">
     <div class="lightbox-media">
       <div class="lightbox-content"></div>
-      <button class="lightbox-previous">&#10216</button>
-      <button class="lightbox-next">&#10217</button>
-      <button class="lightbox-close">&#10799</button>
+      <button class="lightbox-previous" aria-label="Image précédente">&#10216</button>
+      <button class="lightbox-next" aria-label="Image suivante">&#10217</button>
+      <button class="lightbox-close" aria-label="Fermer l'aperçu d'image">&#10799</button>
     </div>
   </div>
-  <div id="contact_modal">
+  <div id="contact_modal" role="dialog" aria-hidden="true">
     <div class="modal">
       <header>
         <h2>Contactez-moi</h2>
-        <img src="assets/icons/close.svg" onclick="closeModal()" />
+        <img src="assets/icons/close.svg" type="button" alt="" aria-label="fermer le formulaire de contact"
+          onclick="closeModal()" />
       </header>
-      <form>
+      <form action="#" method="get" aria-label="Entrer vos coordonnées et votre message">
         <div>
-          <label>Prénom</label>
-          <input type="text" />
-          <label>Nom</label>
-          <input type="text" />
-          <label>Email</label>
-          <input type="email" />
-          <label>Votre message</label>
-          <textarea name="" id="" rows="10"></textarea>
+          <label for="prenom" aria-describedby="prenom">Prénom</label>
+          <input type="text" name="prenom" id="prenom" aria-label="Entrer votre prénom" />
+          <label for="nom" aria-describedby="nom">Nom</label>
+          <input type="text" name="nom" id="nom" aria-label="Entrer votre nom" />
+          <label for="email" aria-describedby="email">Email</label>
+          <input type="email" name="email" id="email" aria-label="Entrer votre adresse mail" />
+          <label for="message" aria-describedby="message">Votre message</label>
+          <textarea name="message" id="message" rows="10" aria-label="Écriver votre message"></textarea>
         </div>
-        <button class="contact_button">Envoyer</button>
+        <button class="contact_button" type="submit" aria-label="Envoyer votre formulaire">Envoyer</button>
       </form>
     </div>
   </div>

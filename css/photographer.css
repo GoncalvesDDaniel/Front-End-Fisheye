@@ -23,6 +23,10 @@ main {
 }
 #contact_modal {
     display: none;
+    position: absolute;
+    width: 100%;
+    top: 3rem;
+    left: 0;
 }
 
 .photograph-header {

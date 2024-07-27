@@ -13,10 +13,11 @@ const photographerId = Number.parseInt(urlPhotographerParams.get("id"), 10);
 
 function displayData(array) {
     const photographHeader = document.querySelector(".photograph-header");
+    const photographContactBtn = document.querySelector(".contact_button");
     const photographModel = photographerTemplate(array);
     const photographInfo = photographModel.getHTMLInfo();
     const photographPicture = photographModel.getHTMLPicture();
-    photographHeader.appendChild(photographInfo);
+    photographContactBtn.insertAdjacentElement("beforebegin", photographInfo);
     photographHeader.appendChild(photographPicture);
 }
 function displayMedia(array) {
@@ -59,6 +60,7 @@ function lightbox() {
         let galleryNodeEl = document.querySelectorAll(".gallery-content");
         let lightboxArrayGallery = Array.from(galleryNodeEl);
         lightbox.classList.remove("hide");
+        lightbox.setAttribute("aria-hiden", "false");
         let index;
 
         // find index of the clicked media
@@ -105,14 +107,15 @@ function lightbox() {
         }
     }
     const closeLightboxButton = document.querySelector(".lightbox-close");
-    closeLightboxButton.addEventListener("click", () =>
-        lightbox.classList.add("hide")
-    );
+    closeLightboxButton.addEventListener("click", () => {
+        lightbox.classList.add("hide");
+        lightbox.setAttribute("aria-hiden", "true");
+    });
 }
 // sort medias with select options
 function sortGalleryListener(gallery, photographer) {
     const sortChoice = document.querySelector("select");
-    console.log(gallery);
+    // console.log(gallery);
     sortChoice.addEventListener("change", () => {
         const galleryCleaner = document.querySelector(".gallery");
         galleryCleaner.innerHTML = "";
@@ -146,7 +149,7 @@ function sortGalleryListener(gallery, photographer) {
 
 function likeCounterAndPrice(obj) {
     // debugger;
-    const photographHeader = document.querySelector(".photograph-header");
+    const photographHeader = document.querySelector(".media-gallery");
     const div = document.createElement("div");
     div.className = "total-likes";
     let totalLikes = obj.media.reduce((a, b) => a + b.likes, 0);
@@ -157,6 +160,7 @@ function likeCounterAndPrice(obj) {
     pTotalLikes.textContent = `${totalLikes}`;
     const heart = document.createElement("img");
     heart.src = "assets/icons/Black-Heart.svg";
+    heart.alt = "total likes";
     heart.className = "total-likes__heart";
     const pPrice = document.createElement("p");
     pPrice.className = "photograph-price";
