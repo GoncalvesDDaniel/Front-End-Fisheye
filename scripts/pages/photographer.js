@@ -54,6 +54,9 @@ async function init() {
 function lightbox() {
     const lightbox = document.querySelector(".lightbox");
     const gallery = document.querySelector(".gallery");
+    const header = document.querySelector("header");
+    const main = document.getElementById("main");
+    const closeLightboxButton = document.querySelector(".lightbox-close");
     gallery.addEventListener("click", (event) => {
         const clickedElement = event.target.closest(".gallery-content");
         if (!clickedElement) return;
@@ -61,6 +64,9 @@ function lightbox() {
         let lightboxArrayGallery = Array.from(galleryNodeEl);
         lightbox.classList.remove("hide");
         lightbox.setAttribute("aria-hiden", "false");
+        main.setAttribute("aria-hidden", "true");
+        header.setAttribute("aria-hidden", "true");
+        closeLightboxButton.focus();
         let index;
 
         // find index of the clicked media
@@ -72,11 +78,7 @@ function lightbox() {
 
         lightboxDisplayMedia(index, lightboxArrayGallery);
 
-        const nextLightboxButton = document.querySelector(".lightbox-next");
-        const previousLightboxButton =
-            document.querySelector(".lightbox-previous");
-
-        nextLightboxButton.addEventListener("click", () => {
+        function displayNextMedia() {
             index++;
             if (index < lightboxArrayGallery.length - 1) {
                 lightboxDisplayMedia(index, lightboxArrayGallery);
@@ -84,14 +86,34 @@ function lightbox() {
                 index = 0;
                 lightboxDisplayMedia(index, lightboxArrayGallery);
             }
-        });
-        previousLightboxButton.addEventListener("click", () => {
+        }
+        function displayPreviousMedia() {
             index--;
             if (index >= 0) {
                 lightboxDisplayMedia(index, lightboxArrayGallery);
             } else {
                 index = lightboxArrayGallery.length - 1;
                 lightboxDisplayMedia(index, lightboxArrayGallery);
+            }
+        }
+
+        const nextLightboxButton = document.querySelector(".lightbox-next");
+        const previousLightboxButton =
+            document.querySelector(".lightbox-previous");
+
+        previousLightboxButton.addEventListener("click", () => {
+            displayNextMedia();
+        });
+        nextLightboxButton.addEventListener("click", () => {
+            displayNextMedia();
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowLeft") {
+                displayPreviousMedia();
+            }
+            if (event.key === "ArrowRight") {
+                displayNextMedia();
             }
         });
     });
@@ -106,10 +128,11 @@ function lightbox() {
             lightboxEl.innerHTML = `<${mediaType} controls src=${array[index].src} alt=${array[index].alt} type="video/mp4" preload="metadata"></${mediaType}>`;
         }
     }
-    const closeLightboxButton = document.querySelector(".lightbox-close");
     closeLightboxButton.addEventListener("click", () => {
         lightbox.classList.add("hide");
         lightbox.setAttribute("aria-hiden", "true");
+        main.setAttribute("aria-hidden", "false");
+        header.setAttribute("aria-hidden", "false");
     });
 }
 // sort medias with select options

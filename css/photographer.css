@@ -17,18 +17,34 @@ main {
     max-width: 1440px;
     margin: 0 auto;
 }
+fieldset {
+    border: none;
+    width: 100%;
+}
+
+.sr-only {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
 .logo {
     height: 50px;
     margin-left: 100px;
 }
 #contact_modal {
-    display: none;
     position: absolute;
     width: 100%;
+    /* max-width: 830px; */
     top: 3rem;
     left: 0;
 }
 
+#contact_modal.hide {
+    display: none;
+}
 .photograph-header {
     position: relative;
     background-color: #fafafa;
@@ -146,6 +162,7 @@ img.gallery-heart {
     border-radius: 5px;
     background-color: #db8876;
     width: 50%;
+    max-width: 830px;
     display: flex;
     flex-direction: column;
     align-items: center;
