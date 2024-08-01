@@ -1,16 +1,14 @@
-async function getPhotographers() {
-    const response = await fetch("./data/photographers.json");
-    const data = await response.json();
-    return data;
-}
+import { getAllPhotographerData } from "../utils/api.js";
+import { photographerTemplate } from "../templates/photographerFactory.js";
 
-async function displayData(photographers) {
-    const photographersSection = document.querySelector(
-        ".photographer_section"
-    );
+const photographersSection = document.querySelector(".photographer_section");
 
-    photographers.forEach((photographer) => {
+//take photographersArray and create all photographers cards
+async function generateAllPhotographersCard(array) {
+    array.forEach((photographer) => {
+        // get all info of the photographer
         const photographerModel = photographerTemplate(photographer);
+        // create the photographer card
         const userCardDOM = photographerModel.getUserCardDOM();
         photographersSection.appendChild(userCardDOM);
     });
@@ -18,9 +16,9 @@ async function displayData(photographers) {
 
 async function init() {
     // Récupère les datas (photographes + media) des photographes
-    const photographers = await getPhotographers();
+    const infos = await getAllPhotographerData();
     // displayData with array of photographers from the fetch json file
-    displayData(photographers.photographers);
+    generateAllPhotographersCard(infos.photographers);
 }
 
 init();

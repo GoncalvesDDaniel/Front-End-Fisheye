@@ -1,5 +1,6 @@
-function photographerTemplate(data) {
-    const { id, name, city, country, price, tagline, portrait } = data;
+export function photographerTemplate(photographerObj) {
+    const { id, name, city, country, price, tagline, portrait } =
+        photographerObj;
     const picture = `assets/photographers/Photographers-Id-Photos/${portrait}`;
 
     const img = document.createElement("img");
