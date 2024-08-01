@@ -65,6 +65,7 @@ function lightbox() {
         lightbox.classList.remove("hide");
         lightbox.setAttribute("aria-hiden", "false");
         main.setAttribute("aria-hidden", "true");
+        main.classList.add("no-scroll");
         header.setAttribute("aria-hidden", "true");
         closeLightboxButton.focus();
         let index;
@@ -116,23 +117,28 @@ function lightbox() {
                 displayNextMedia();
             }
         });
-    });
-    function lightboxDisplayMedia(index, array) {
-        let mediaType = array[index].localName;
-        let lightboxEl = document.querySelector(".lightbox-content");
-        if (mediaType === "img") {
-            lightboxEl.innerHTML = `<${mediaType} src=${array[index].src} alt=${array[index].alt}></${mediaType}>`;
-        }
 
-        if (mediaType === "video") {
-            lightboxEl.innerHTML = `<${mediaType} controls src=${array[index].src} alt=${array[index].alt} type="video/mp4" preload="metadata"></${mediaType}>`;
+        function lightboxDisplayMedia(index, array) {
+            let mediaType = array[index].localName;
+            let lightboxEl = document.querySelector(".lightbox-content");
+            if (mediaType === "img") {
+                lightboxEl.innerHTML = `<${mediaType} src=${array[index].src} alt=${array[index].alt}></${mediaType}>`;
+            }
+
+            if (mediaType === "video") {
+                lightboxEl.innerHTML = `<${mediaType} controls src=${array[index].src} alt=${array[index].alt} type="video/mp4" preload="metadata"></${mediaType}>`;
+            }
         }
-    }
-    closeLightboxButton.addEventListener("click", () => {
-        lightbox.classList.add("hide");
-        lightbox.setAttribute("aria-hiden", "true");
-        main.setAttribute("aria-hidden", "false");
-        header.setAttribute("aria-hidden", "false");
+        closeLightboxButton.addEventListener("click", () => {
+            lightbox.classList.add("hide");
+            lightbox.setAttribute("aria-hiden", "true");
+            main.setAttribute("aria-hidden", "false");
+            main.classList.remove("no-scroll");
+            header.setAttribute("aria-hidden", "false");
+        });
+        document.addEventListener("click", (event) =>
+            console.log(event.target)
+        );
     });
 }
 // sort medias with select options

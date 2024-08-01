@@ -30,6 +30,9 @@ fieldset {
     height: 1px;
     overflow: hidden;
 }
+.no-scroll {
+    overflow: hidden;
+}
 .logo {
     height: 50px;
     margin-left: 100px;
