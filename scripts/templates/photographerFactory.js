@@ -1,15 +1,18 @@
 export function photographerTemplate(photographerObj) {
     const { id, name, city, country, price, tagline, portrait } =
         photographerObj;
+
     const picture = `assets/photographers/Photographers-Id-Photos/${portrait}`;
 
     const img = document.createElement("img");
     img.setAttribute("src", picture);
     img.setAttribute("alt", "");
     img.className = "photograph-picture";
+
     const pLocalisation = document.createElement("p");
     pLocalisation.className = "photographe-location";
     pLocalisation.textContent = `${city}, ${country}`;
+
     const pTagline = document.createElement("p");
     pTagline.textContent = tagline;
     pTagline.className = "photographe-tagline";
@@ -34,8 +37,6 @@ export function photographerTemplate(photographerObj) {
         return article;
     }
     function getHTMLPicture() {
-        // const div = document.createElement("div");
-        // div.appendChild(img);
         return img;
     }
     function getHTMLInfo() {

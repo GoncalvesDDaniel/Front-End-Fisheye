@@ -1,51 +1,60 @@
 //Mettre le code JavaScript lié à la page photographer.html
-async function getPhotographerId(id) {
-    const response = await fetch("../../data/photographers.json");
-    const data = await response.json();
-    const photographer = data.photographers.filter((elem) => elem.id === id);
-    const media = data.media.filter((elem) => elem.photographerId === id);
-    return { photographer, media };
-}
+import { getAllPhotographerData } from "../utils/api.js";
+import { photographerTemplate } from "../templates/photographerFactory.js";
+import { displayMedia } from "../templates/mediaFactory.js";
 
 // get photographer informations from url
 const urlPhotographerParams = new URL(window.location).searchParams;
 const photographerId = Number.parseInt(urlPhotographerParams.get("id"), 10);
 
+//get data from fetch
+async function getPhotographerData(id) {
+    const data = await getAllPhotographerData();
+
+    const photographer = data.photographers.filter(
+        (photographer) => photographer.id === id
+    );
+
+    const media = data.media.filter((elem) => elem.photographerId === id);
+    return { photographer, media };
+}
+
+//get H1 with name and some info + photographer picture
 function displayData(array) {
     const photographHeader = document.querySelector(".photograph-header");
     const photographContactBtn = document.querySelector(".contact_button");
+
+    //photographerTemplate should return name picture card etc...
     const photographModel = photographerTemplate(array);
     const photographInfo = photographModel.getHTMLInfo();
     const photographPicture = photographModel.getHTMLPicture();
+
     photographContactBtn.insertAdjacentElement("beforebegin", photographInfo);
     photographHeader.appendChild(photographPicture);
 }
-function displayMedia(array) {
-    const card = array.forEach((element) => mediaTemplate(element));
+
+function generateGallery(array) {
     const gallery = document.querySelector(".gallery");
 
     array.forEach((media) => {
-        const mediaModel = mediaTemplate(media);
-        const userMediaCard = mediaModel.getUserMediaCardDOM();
+        const singleMedia = displayMedia(media);
+        const userMediaCard = singleMedia.getUserMediaCardDOM();
         gallery.appendChild(userMediaCard);
     });
 }
 async function init() {
-    // Récupère les datas (photographes + media) des photographes
-    const photograph = await getPhotographerId(photographerId);
+    const photograph = await getPhotographerData(photographerId);
 
     // displayData with array of photographers from the fetch json file
     displayData(photograph.photographer[0]);
 
-    // displayMedia(photograph.media);
-    let medias = photograph.media;
-    // debugger;
-    // sort and display gallery content by likes by default
-    medias.sort(function (a, b) {
+    // sort by likes set by default
+    photograph.media.sort(function (a, b) {
         return b.likes - a.likes;
     });
-    displayMedia(medias);
-    sortGalleryListener(medias, photograph);
+
+    generateGallery(photograph.media);
+    sortGalleryListener(photograph.media, photograph);
     likeCounterAndPrice(photograph);
     lightbox();
 }
@@ -141,20 +150,23 @@ function lightbox() {
         );
     });
 }
-// sort medias with select options
+
+// sort medias gallery with select options
 function sortGalleryListener(gallery, photographer) {
     const sortChoice = document.querySelector("select");
-    // console.log(gallery);
+
     sortChoice.addEventListener("change", () => {
         const galleryCleaner = document.querySelector(".gallery");
+        //clear the html before new display
         galleryCleaner.innerHTML = "";
+
         switch (sortChoice.selectedIndex) {
-            // popularity set by default on html
+            // popularity (set by default on html)
             case 0:
                 gallery.sort(function (a, b) {
                     return b.likes - a.likes;
                 });
-                displayMedia(gallery);
+                generateGallery(gallery);
                 break;
 
             // Date
@@ -162,14 +174,14 @@ function sortGalleryListener(gallery, photographer) {
                 gallery.sort(function (a, b) {
                     return new Date(b.date) - new Date(a.date);
                 });
-                displayMedia(gallery);
+                generateGallery(gallery);
                 break;
             // title
             case 2:
                 gallery.sort(function (a, b) {
                     return b.title < a.title ? 1 : -1;
                 });
-                displayMedia(gallery);
+                generateGallery(gallery);
                 break;
         }
         likeCounterAndPrice(photographer);
@@ -177,20 +189,24 @@ function sortGalleryListener(gallery, photographer) {
 }
 
 function likeCounterAndPrice(obj) {
-    // debugger;
     const photographHeader = document.querySelector(".media-gallery");
+    let totalLikes = obj.media.reduce((a, b) => a + b.likes, 0);
+
     const div = document.createElement("div");
     div.className = "total-likes";
-    let totalLikes = obj.media.reduce((a, b) => a + b.likes, 0);
+
     const likesText = document.createElement("div");
     likesText.className = "photograph-likes";
+
     const pTotalLikes = document.createElement("p");
     pTotalLikes.className = "photograph-likes-count";
     pTotalLikes.textContent = `${totalLikes}`;
+
     const heart = document.createElement("img");
     heart.src = "assets/icons/Black-Heart.svg";
     heart.alt = "total likes";
     heart.className = "total-likes__heart";
+
     const pPrice = document.createElement("p");
     pPrice.className = "photograph-price";
     pPrice.textContent = `${obj.photographer[0].price}€/jour`;
@@ -205,7 +221,7 @@ function likeCounterAndPrice(obj) {
 
     // function likeIncrementation() {
     const likedMedia = document.querySelectorAll(".gallery-heart");
-    // debugger;
+
     likedMedia.forEach((heart) =>
         heart.addEventListener("click", (event) => {
             const clickedElement = event.target.closest(".gallery-heart");

@@ -8,8 +8,8 @@
 // 	"price": 55
 // },
 
-function mediaTemplate(data) {
-    const { id, title, likes, image, video } = data;
+export function displayMedia(data) {
+    const { id, photographerId, title, likes, image, video } = data;
     const div = document.querySelector(".gallery");
     let media;
     let content;

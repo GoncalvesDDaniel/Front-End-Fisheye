@@ -4,7 +4,7 @@ import { photographerTemplate } from "../templates/photographerFactory.js";
 const photographersSection = document.querySelector(".photographer_section");
 
 //take photographersArray and create all photographers cards
-async function generateAllPhotographersCard(array) {
+function generateAllPhotographersCard(array) {
     array.forEach((photographer) => {
         // get all info of the photographer
         const photographerModel = photographerTemplate(photographer);
@@ -15,9 +15,7 @@ async function generateAllPhotographersCard(array) {
 }
 
 async function init() {
-    // Récupère les datas (photographes + media) des photographes
     const infos = await getAllPhotographerData();
-    // displayData with array of photographers from the fetch json file
     generateAllPhotographersCard(infos.photographers);
 }
 
