@@ -21,7 +21,7 @@ async function getPhotographerData(id) {
 
 //get H1 with name and some info + photographer picture
 function displayData(array) {
-    const photographHeader = document.querySelector(".photograph-header");
+    const PhotographMediaGallery = document.querySelector(".photograph-header");
     const photographContactBtn = document.querySelector(".contact_button");
 
     //photographerTemplate should return name picture card etc...
@@ -30,7 +30,7 @@ function displayData(array) {
     const photographPicture = photographModel.getHTMLPicture();
 
     photographContactBtn.insertAdjacentElement("beforebegin", photographInfo);
-    photographHeader.appendChild(photographPicture);
+    PhotographMediaGallery.appendChild(photographPicture);
 }
 
 function generateGallery(array) {
@@ -125,6 +125,9 @@ function lightbox() {
             if (event.key === "ArrowRight") {
                 displayNextMedia();
             }
+            // if(event.key === 'Escape'){
+            //     closeLightbox
+            // }
         });
 
         function lightboxDisplayMedia(index, array) {
@@ -189,7 +192,7 @@ function sortGalleryListener(gallery, photographer) {
 }
 
 function likeCounterAndPrice(obj) {
-    const photographHeader = document.querySelector(".media-gallery");
+    const PhotographMediaGallery = document.querySelector(".media-gallery");
     let totalLikes = obj.media.reduce((a, b) => a + b.likes, 0);
 
     const div = document.createElement("div");
@@ -211,7 +214,7 @@ function likeCounterAndPrice(obj) {
     pPrice.className = "photograph-price";
     pPrice.textContent = `${obj.photographer[0].price}€/jour`;
 
-    photographHeader.appendChild(div);
+    PhotographMediaGallery.appendChild(div);
     div.appendChild(likesText);
     likesText.appendChild(pTotalLikes);
     likesText.appendChild(heart);
