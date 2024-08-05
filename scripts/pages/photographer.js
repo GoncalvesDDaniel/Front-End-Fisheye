@@ -1,6 +1,6 @@
 //Mettre le code JavaScript lié à la page photographer.html
 async function getPhotographerId(id) {
-    const response = await fetch("./data/photographers.json");
+    const response = await fetch("../../data/photographers.json");
     const data = await response.json();
     const photographer = data.photographers.filter((elem) => elem.id === id);
     const media = data.media.filter((elem) => elem.photographerId === id);
