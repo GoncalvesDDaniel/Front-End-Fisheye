@@ -13,14 +13,15 @@ export function displayMedia(data) {
     const div = document.querySelector(".gallery");
     let media;
     let content;
-    //  check if image or video exist and display appropriate content
+
+    //  check the type of media (image or video)
     if (!!image) {
         media = `./assets/photographers/${photographerId}/${image}`;
-        content = `<img src=${media} alt="${title}" class="gallery-content"></img>`;
+        content = `<img src=${media} alt="${title}" class="gallery-content" tabindex='0'></img>`;
     }
     if (!!video) {
         media = `./assets/photographers/${photographerId}/${video}`;
-        content = `<video  src="${media}#t=0.1" type="video/mp4" preload="metadata" class="gallery-content"></video>`;
+        content = `<video  src="${media}#t=0.1" type="video/mp4" preload="metadata" class="gallery-content" tabindex='0'></video>`;
     }
 
     function getUserMediaCardDOM() {
@@ -33,7 +34,7 @@ export function displayMedia(data) {
             <p class="gallery-title">${title}</p>
             <div class="gallery-likes">
               <p class="likes-count">${likes}</p>
-              <img src="assets/icons/Heart.svg" alt="" class="gallery-heart">
+              <img src="assets/icons/Heart.svg" alt="likes" class="gallery-heart" role='button' tabindex='0'>
             </div>
         </div>
     `;
