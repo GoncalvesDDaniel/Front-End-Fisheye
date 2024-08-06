@@ -66,4 +66,6 @@ document.addEventListener("submit", (event) => {
     userInputs.forEach((input) => {
         console.log(`${input.id} = ${input.value}`);
     });
+    closeModal();
+    return;
 });

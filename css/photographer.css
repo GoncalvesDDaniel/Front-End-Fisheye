@@ -177,6 +177,7 @@ img.gallery-heart {
 .modal header {
     justify-content: space-between;
     width: 100%;
+    height: auto;
 }
 
 .modal header img {
@@ -186,7 +187,8 @@ img.gallery-heart {
 .modal header h2 {
     font-size: 4rem;
     font-weight: normal;
-    text-align: center;
+    text-align: left;
+    padding: 5px 12px;
 }
 .lightbox {
     position: fixed;

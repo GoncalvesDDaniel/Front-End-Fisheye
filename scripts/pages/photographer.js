@@ -21,8 +21,9 @@ async function getPhotographerData(id) {
 
 //get H1 with name and some info + photographer picture
 function displayData(array) {
-    const PhotographMediaGallery = document.querySelector(".photograph-header");
+    const photographMediaGallery = document.querySelector(".photograph-header");
     const photographContactBtn = document.querySelector(".contact_button");
+    const formTitle = document.querySelector(".modal-title");
 
     //photographerTemplate should return name picture card etc...
     const photographModel = photographerTemplate(array);
@@ -30,7 +31,9 @@ function displayData(array) {
     const photographPicture = photographModel.getHTMLPicture();
 
     photographContactBtn.insertAdjacentElement("beforebegin", photographInfo);
-    PhotographMediaGallery.appendChild(photographPicture);
+    photographMediaGallery.appendChild(photographPicture);
+    formTitle.innerText = `Contactez-moi
+    ${photographModel.name}`;
 }
 
 function generateGallery(array) {
@@ -72,7 +75,7 @@ function lightbox() {
         let galleryNodeEl = document.querySelectorAll(".gallery-content");
         let lightboxArrayGallery = Array.from(galleryNodeEl);
         lightbox.classList.remove("hide");
-        lightbox.setAttribute("aria-hiden", "false");
+        lightbox.setAttribute("aria-hidden", "false");
         main.setAttribute("aria-hidden", "true");
         main.classList.add("no-scroll");
         header.setAttribute("aria-hidden", "true");
@@ -125,9 +128,13 @@ function lightbox() {
             if (event.key === "ArrowRight") {
                 displayNextMedia();
             }
-            // if(event.key === 'Escape'){
-            //     closeLightbox
-            // }
+            if (event.key === "Escape") {
+                lightbox.classList.add("hide");
+                lightbox.setAttribute("aria-hiden", "true");
+                main.setAttribute("aria-hidden", "false");
+                main.classList.remove("no-scroll");
+                header.setAttribute("aria-hidden", "false");
+            }
         });
 
         function lightboxDisplayMedia(index, array) {
