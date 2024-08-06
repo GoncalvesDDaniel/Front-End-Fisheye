@@ -2,10 +2,12 @@ const modal = document.getElementById("contact_modal");
 const header = document.querySelector("header");
 const main = document.getElementById("main");
 const firstInput = document.getElementById("prenom");
+const mainWrapper = document.querySelector(".main-wrapper");
 
 function displayModal() {
     header.setAttribute("aria-hidden", "true");
     main.setAttribute("aria-hidden", "true");
+    mainWrapper.classList.add("transparent");
     firstInput.focus();
     modal.classList.remove("hide");
     modal.setAttribute("aria-hidden", "false");
@@ -48,6 +50,7 @@ function closeModal() {
     modal.setAttribute("aria-hidden", "true");
     header.setAttribute("aria-hidden", "false");
     main.setAttribute("aria-hidden", "false");
+    mainWrapper.classList.remove("transparent");
     // lightbox.setAttribute("aria-hidden", "false");
 }
 

@@ -10,26 +10,29 @@
 </head>
 
 <body>
-  <header role="banner">
-    <a href="./index.html" aria-describedby="MainLogo"><img src="./assets/images/logo.png"
-        alt="Page d'accueil Fish   eye" class="logo" id="MainLogo" /></a>
-  </header>
-  <main id="main">
-    <section class="photograph-header">
-      <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-    </section>
-    <section class="media-gallery">
-      <label for="sort-selection" class="sort-btn">Trier par :
-        <select name="sort" id="sort-selection">
-          <option value="Popularité" selected>Popularité</option>
-          <option value="Date">Date</option>
-          <option value="Titre">Titre</option>
-        </select></label>
-      <div class="gallery">
-      </div>
-    </section>
+  <div class="main-wrapper">
 
-  </main>
+    <header role="banner">
+      <a href="./index.html" aria-describedby="MainLogo"><img src="./assets/images/logo.png"
+          alt="Page d'accueil Fish   eye" class="logo" id="MainLogo" /></a>
+    </header>
+    <main id="main">
+      <section class="photograph-header">
+        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      </section>
+      <section class="media-gallery">
+        <label for="sort-selection" class="sort-btn">Trier par :
+          <select name="sort" id="sort-selection">
+            <option value="Popularité" selected>Popularité</option>
+            <option value="Date">Date</option>
+            <option value="Titre">Titre</option>
+          </select></label>
+        <div class="gallery">
+        </div>
+      </section>
+
+    </main>
+  </div>
   <div class="lightbox hide" role="dialog" aria-label="Afficher l'image en grand" aria-hidden="true">
     <div class="lightbox-media">
       <div class="lightbox-content"></div>

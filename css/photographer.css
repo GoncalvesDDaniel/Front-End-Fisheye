@@ -13,10 +13,7 @@ header {
     display: flex;
     align-items: center;
 }
-main {
-    max-width: 1440px;
-    margin: 0 auto;
-}
+
 fieldset {
     border: none;
     width: 100%;
@@ -30,12 +27,23 @@ fieldset {
     height: 1px;
     overflow: hidden;
 }
+
 .no-scroll {
     overflow: hidden;
 }
+
 .logo {
     height: 50px;
     margin-left: 100px;
+    opacity: 1;
+}
+
+.main-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+.transparent {
+    opacity: 0.5;
 }
 #contact_modal {
     position: absolute;
@@ -176,6 +184,7 @@ img.gallery-heart {
 
 .modal header {
     justify-content: space-between;
+    align-items: baseline;
     width: 100%;
     height: auto;
 }
