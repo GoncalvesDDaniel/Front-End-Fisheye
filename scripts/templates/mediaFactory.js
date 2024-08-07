@@ -21,7 +21,7 @@ export function displayMedia(data) {
     }
     if (!!video) {
         media = `./assets/photographers/${photographerId}/${video}`;
-        content = `<video  src="${media}#t=0.1" type="video/mp4" preload="metadata" class="gallery-content" tabindex='0'></video>`;
+        content = `<video  src="${media}#t=0.1" type="video/mp4" preload="metadata" class="gallery-content" tabindex='0' data-title='${title}'></video>`;
     }
 
     function getUserMediaCardDOM() {

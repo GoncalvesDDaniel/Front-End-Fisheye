@@ -62,24 +62,37 @@ async function init() {
     lightbox();
 }
 
-// lightbox
 function lightbox() {
     const lightbox = document.querySelector(".lightbox");
     const gallery = document.querySelector(".gallery");
     const header = document.querySelector("header");
     const main = document.getElementById("main");
+    const body = document.querySelector("body");
     const closeLightboxButton = document.querySelector(".lightbox-close");
+
+    function displayLightbox() {
+        lightbox.classList.remove("hide");
+        lightbox.setAttribute("aria-hidden", "false");
+        main.setAttribute("aria-hidden", "true");
+        body.classList.add("no-scroll");
+        header.setAttribute("aria-hidden", "true");
+        closeLightboxButton.focus();
+    }
+
+    function closeLightbox() {
+        lightbox.classList.add("hide");
+        lightbox.setAttribute("aria-hiden", "true");
+        main.setAttribute("aria-hidden", "false");
+        header.setAttribute("aria-hidden", "false");
+        body.classList.remove("no-scroll");
+    }
+
     gallery.addEventListener("click", (event) => {
         const clickedElement = event.target.closest(".gallery-content");
         if (!clickedElement) return;
         let galleryNodeEl = document.querySelectorAll(".gallery-content");
         let lightboxArrayGallery = Array.from(galleryNodeEl);
-        lightbox.classList.remove("hide");
-        lightbox.setAttribute("aria-hidden", "false");
-        main.setAttribute("aria-hidden", "true");
-        main.classList.add("no-scroll");
-        header.setAttribute("aria-hidden", "true");
-        closeLightboxButton.focus();
+        displayLightbox();
         let index;
 
         // find index of the clicked media
@@ -115,7 +128,7 @@ function lightbox() {
             document.querySelector(".lightbox-previous");
 
         previousLightboxButton.addEventListener("click", () => {
-            displayNextMedia();
+            displayPreviousMedia();
         });
         nextLightboxButton.addEventListener("click", () => {
             displayNextMedia();
@@ -129,32 +142,28 @@ function lightbox() {
                 displayNextMedia();
             }
             if (event.key === "Escape") {
-                lightbox.classList.add("hide");
-                lightbox.setAttribute("aria-hiden", "true");
-                main.setAttribute("aria-hidden", "false");
-                main.classList.remove("no-scroll");
-                header.setAttribute("aria-hidden", "false");
+                closeLightbox();
             }
         });
 
         function lightboxDisplayMedia(index, array) {
             let mediaType = array[index].localName;
+            let mediaImageTitle = array[index].alt;
+            console.log(array[index].dataset.title);
+            let mediaVideoTitle = array[index].dataset.title;
             let lightboxEl = document.querySelector(".lightbox-content");
             if (mediaType === "img") {
-                lightboxEl.innerHTML = `<${mediaType} src=${array[index].src} alt=${array[index].alt}></${mediaType}>`;
+                lightboxEl.innerHTML = `<${mediaType} src=${array[index].src} alt=${array[index].alt}></${mediaType}><p class='lightbox-title'>${mediaImageTitle}</p>`;
             }
 
             if (mediaType === "video") {
-                lightboxEl.innerHTML = `<${mediaType} controls src=${array[index].src} alt=${array[index].alt} type="video/mp4" preload="metadata"></${mediaType}>`;
+                lightboxEl.innerHTML = `<${mediaType} controls src=${array[index].src} alt=${array[index].alt} type="video/mp4" preload="metadata"></${mediaType}><p class='lightbox-title'>${mediaVideoTitle}</p>`;
             }
         }
         closeLightboxButton.addEventListener("click", () => {
-            lightbox.classList.add("hide");
-            lightbox.setAttribute("aria-hiden", "true");
-            main.setAttribute("aria-hidden", "false");
-            main.classList.remove("no-scroll");
-            header.setAttribute("aria-hidden", "false");
+            closeLightbox();
         });
+
         document.addEventListener("click", (event) =>
             console.log(event.target)
         );
