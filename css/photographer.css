@@ -243,6 +243,8 @@ img.gallery-heart {
     outline: #333;
     position: absolute;
     background-color: transparent;
+}
+.lightbox button:not(:focus-visible) {
     border: none;
 }
 .lightbox-close {

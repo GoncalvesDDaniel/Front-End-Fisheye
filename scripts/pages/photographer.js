@@ -76,7 +76,7 @@ function lightbox() {
         main.setAttribute("aria-hidden", "true");
         body.classList.add("no-scroll");
         header.setAttribute("aria-hidden", "true");
-        closeLightboxButton.focus();
+        trapFocus();
     }
 
     function closeLightbox() {
@@ -85,6 +85,41 @@ function lightbox() {
         main.setAttribute("aria-hidden", "false");
         header.setAttribute("aria-hidden", "false");
         body.classList.remove("no-scroll");
+    }
+
+    function trapFocus() {
+        const focusableElements = 'button, [tabindex]:not([tabindex="-1"])';
+        // select the modal by it's id
+        const firstFocusableElement =
+            lightbox.querySelectorAll(focusableElements)[0];
+        const focusableContent = lightbox.querySelectorAll(focusableElements);
+        const lastFocusableElement =
+            focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
+
+        document.addEventListener("keydown", function (e) {
+            let isTabPressed = e.key === "Tab";
+
+            if (!isTabPressed) {
+                return;
+            }
+
+            if (e.shiftKey) {
+                // if shift key pressed for shift + tab combination
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus(); // add focus for the last focusable element
+                    e.preventDefault();
+                }
+            } else {
+                // if tab key is pressed
+                if (document.activeElement === lastFocusableElement) {
+                    // if focused has reached to last focusable element then focus first focusable element after pressing tab
+                    firstFocusableElement.focus(); // add focus for the first focusable element
+                    e.preventDefault();
+                }
+            }
+        });
+
+        firstFocusableElement.focus();
     }
 
     gallery.addEventListener("click", (event) => {
@@ -123,50 +158,49 @@ function lightbox() {
             }
         }
 
-        const nextLightboxButton = document.querySelector(".lightbox-next");
-        const previousLightboxButton =
-            document.querySelector(".lightbox-previous");
-
-        previousLightboxButton.addEventListener("click", () => {
-            displayPreviousMedia();
-        });
-        nextLightboxButton.addEventListener("click", () => {
-            displayNextMedia();
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "ArrowLeft") {
-                displayPreviousMedia();
-            }
-            if (event.key === "ArrowRight") {
-                displayNextMedia();
-            }
-            if (event.key === "Escape") {
-                closeLightbox();
-            }
-        });
-
         function lightboxDisplayMedia(index, array) {
             let mediaType = array[index].localName;
             let mediaImageTitle = array[index].alt;
-            console.log(array[index].dataset.title);
             let mediaVideoTitle = array[index].dataset.title;
             let lightboxEl = document.querySelector(".lightbox-content");
             if (mediaType === "img") {
-                lightboxEl.innerHTML = `<${mediaType} src=${array[index].src} alt=${array[index].alt}></${mediaType}><p class='lightbox-title'>${mediaImageTitle}</p>`;
+                lightboxEl.innerHTML = `<${mediaType} src=${array[index].src} alt=${array[index].alt} class='lightbox-content_media'></${mediaType}><p class='lightbox-title'>${mediaImageTitle}</p>`;
             }
 
             if (mediaType === "video") {
-                lightboxEl.innerHTML = `<${mediaType} controls src=${array[index].src} alt=${array[index].alt} type="video/mp4" preload="metadata"></${mediaType}><p class='lightbox-title'>${mediaVideoTitle}</p>`;
+                lightboxEl.innerHTML = `<${mediaType} controls src=${array[index].src} alt=${array[index].alt} type="video/mp4" preload="metadata" class='lightbox-content_media'></${mediaType}><p class='lightbox-title'>${mediaVideoTitle}</p>`;
             }
         }
-        closeLightboxButton.addEventListener("click", () => {
-            closeLightbox();
+
+        lightbox.addEventListener("click", (event) => {
+            const pointerClick = event.target.className;
+            switch (pointerClick) {
+                case "lightbox-next":
+                    displayNextMedia();
+                    break;
+                case "lightbox-previous":
+                    displayPreviousMedia();
+                    break;
+                case "lightbox-close":
+                    closeLightbox();
+                    break;
+            }
         });
 
-        document.addEventListener("click", (event) =>
-            console.log(event.target)
-        );
+        lightbox.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowLeft") {
+                displayPreviousMedia();
+                event.preventDefault();
+            }
+            if (event.key === "ArrowRight") {
+                displayNextMedia();
+                event.preventDefault();
+            }
+            if (event.key === "Escape") {
+                closeLightbox();
+                event.preventDefault();
+            }
+        });
     });
 }
 
