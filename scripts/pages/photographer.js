@@ -125,6 +125,18 @@ function lightbox() {
         firstFocusableElement.focus();
     }
 
+    // const galleryContents = document.querySelectorAll('.gallery-content')
+    //     galleryContents.forEach((content) =>
+    //         content.addEventListener("keydown", (event) => {
+    //             if (
+    //                 document.activeElement.className === "gallery-content" &&
+    //                 event.key === "Enter"
+    //             ) {
+    //                 displayLightbox()
+    //             }
+    //         })
+    //     );
+
     gallery.addEventListener("click", (event) => {
         const clickedElement = event.target.closest(".gallery-content");
         if (!clickedElement) return;
