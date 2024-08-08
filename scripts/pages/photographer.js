@@ -68,7 +68,6 @@ function lightbox() {
     const header = document.querySelector("header");
     const main = document.getElementById("main");
     const body = document.querySelector("body");
-    const closeLightboxButton = document.querySelector(".lightbox-close");
 
     function displayLightbox() {
         lightbox.classList.remove("hide");
@@ -237,6 +236,8 @@ function sortGalleryListener(gallery, photographer) {
                 generateGallery(gallery);
                 break;
         }
+        // counter place here because no back end avaliable now.
+        // Every time a sort is appl,y reset le number of like. To be coherent, I have placed here so it reset too.
         likeCounterAndPrice(photographer);
     });
 }
@@ -277,6 +278,7 @@ function likeCounterAndPrice(obj) {
 
     likedMedia.forEach((heart) =>
         heart.addEventListener("click", (event) => {
+            debugger;
             const clickedElement = event.target.closest(".gallery-heart");
             if (!clickedElement) return;
             let numberOfLikes = parseInt(
