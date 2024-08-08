@@ -1,4 +1,3 @@
-//Mettre le code JavaScript lié à la page photographer.html
 import { getAllPhotographerData } from "../utils/api.js";
 import { photographerTemplate } from "../templates/photographerFactory.js";
 import { displayMedia } from "../templates/mediaFactory.js";
@@ -63,7 +62,7 @@ async function init() {
 
     generateGallery(photograph.media);
     sortGalleryListener(photograph.media, photograph);
-    likeCounterAndPrice(photograph);
+    likeCounter(photograph);
     lightbox();
 }
 
@@ -263,11 +262,16 @@ function likeCounter(obj) {
             incrementLikes(totalLikesOfMediaEl);
         })
     );
-    // likedMedia.forEach((heart)=> heart.addEventListener(('keydown'),(event) =>{
-    //     if(event.key === 'Enter' || event.key === 'Space'){
-
-    //     }
-    // }))
+    likedMedia.forEach((heart) =>
+        heart.addEventListener("keydown", (event) => {
+            if (
+                document.activeElement.className === "gallery-heart" &&
+                event.key === "Enter"
+            ) {
+                incrementLikes(event.target.previousElementSibling);
+            }
+        })
+    );
     function incrementLikes(elLiked) {
         let numberOfMediaLikes = parseInt(elLiked.textContent);
         let numberOfTotalLikes = parseInt(totalLikesEl.textContent);
