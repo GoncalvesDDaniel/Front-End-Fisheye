@@ -50,5 +50,12 @@ export function photographerTemplate(photographerObj) {
         div.appendChild(pTagline);
         return div;
     }
-    return { name, picture, getUserCardDOM, getHTMLInfo, getHTMLPicture };
+    return {
+        name,
+        picture,
+        price,
+        getUserCardDOM,
+        getHTMLInfo,
+        getHTMLPicture,
+    };
 }
