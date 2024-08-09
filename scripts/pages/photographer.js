@@ -162,7 +162,9 @@ function initLightbox() {
             ) {
                 // console.log(event);
                 // debugger;
-                lightbox2(event);
+                setTimeout(() => {
+                    lightbox2(event);
+                }, 100);
             }
         });
     });
