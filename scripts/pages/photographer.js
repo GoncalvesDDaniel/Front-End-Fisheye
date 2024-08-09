@@ -164,7 +164,7 @@ function initLightbox() {
                 // debugger;
                 setTimeout(() => {
                     lightbox2(event);
-                }, 100);
+                }, 500);
             }
         });
     });
