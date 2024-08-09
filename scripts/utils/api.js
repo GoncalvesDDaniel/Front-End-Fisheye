@@ -1,5 +1,4 @@
 export async function fetchPhotographerData() {
-    const windowLocation = window.location.origin + window.location.pathname;
     let url = "data/photographers.json";
     const response = await fetch(url);
     try {
