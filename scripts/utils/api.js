@@ -1,5 +1,5 @@
 export async function fetchPhotographerData() {
-    let url = "../../data/photographers.json";
+    let url = "/data/photographers.json";
     const response = await fetch(url);
     try {
         if (!response.ok) {
