@@ -1,7 +1,6 @@
 import { getAllPhotographerData } from "../utils/api.js";
 import { photographerTemplate } from "../templates/photographerFactory.js";
 import { displayMedia } from "../templates/mediaFactory.js";
-import { lightbox } from "../utils/lightbox.js";
 import { lightbox2 } from "../utils/lightbox2.js";
 
 // get photographer informations from url
@@ -160,8 +159,6 @@ function initLightbox() {
                 document.activeElement.className === "gallery-content" &&
                 event.key === "Enter"
             ) {
-                // console.log(event);
-                // debugger;
                 setTimeout(() => {
                     lightbox2(event);
                 }, 500);
